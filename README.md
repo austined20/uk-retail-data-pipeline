@@ -1,4 +1,3 @@
-# UK Retail Data Pipeline
 
 ## Overview
 
@@ -24,7 +23,7 @@ Clean
 ↓
 Transform
 ↓
-Load → CSV + SQLite
+Load → CSV + SQLite + PostgreSQL
 ```
 
 ---
@@ -34,6 +33,7 @@ Load → CSV + SQLite
 - Python
 - Pandas
 - SQLite
+- PostgreSQL
 - Logging
 - Git & GitHub
 
@@ -97,6 +97,8 @@ uk-retail-data-pipeline/
 ### Load
 - Saved cleaned data to CSV
 - Loaded data into SQLite database (`retail.db`, table: `retail_data`)
+- Loaded data into PostgreSQL database (retail_db)
+- Implemented full refresh strategy using TRUNCATE before insert
 
 ---
 
@@ -141,6 +143,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Ensure PostgresQL is installed and running.
+
+Create database:
+
+```psql postgres
+CREATE DATABASE retail_db;
+```
+
 ### 4. Add Dataset
 Place the dataset file in:
 
@@ -172,9 +182,11 @@ python src/query_checks.py
 
 ## Future Improvements
 
-- Load data into PostgreSQL
+- Optimise PostgreSQL using bulk inserts
 - Add workflow orchestration (e.g., Airflow)
+- Integrate AWS S3 for data storage
 - Implement automated data quality checks
+- Containarize pipeline using Docker
 - Build dashboards on top of processed data
 
 ---
